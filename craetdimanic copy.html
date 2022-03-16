@@ -1,0 +1,375 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> COPY QUIZ ADDMIN</title>
+    <link rel="icon" href="./popcorn_1f37f.png" type="image/icon type">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+  </head>
+<body>
+   <style>
+      #output{
+     margin-left: 10px;
+     padding: 10px;
+     width: 720px;
+     height: 100px;
+     border: 1px solid royalblue;
+     overflow-y: scroll;
+    }
+    #parentdiv{
+        width: 720;
+        height:auto; 
+        border: none;
+        padding: 10px;
+        text-align: left;
+      
+    }
+    #parentdiv input[name="Question"]{
+        width: 350px;
+        outline: none;
+        font-size: 18px;
+        animation-name: example;
+        animation-duration: 10s;
+        animation-fill-mode: forwards;
+        
+    }
+    input[name="SingleStatement"]{
+        width: 250px;
+        outline: none;
+        font-size: 18px;
+    }
+    
+    .inline{
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 100px;
+    }
+    .innerdiv{
+     border-left: 5px solid rgba(0, 0, 255, 0.507);
+     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.466)
+    }
+    
+    @keyframes example {
+      0% { border-bottom:3px solid rgba(85, 87, 86, 0.705)k;}
+      25% { border-bottom:3px solid rgba(0, 0, 0, 0.397);}
+      25% { border-bottom:3px solid rgba(0, 0, 0, 0.829);}
+      100% { border-bottom:3px solid rgb(0, 0, 0);}
+     }
+     .fas{
+        font-size: 22px;
+    }
+    .question{
+        border-bottom: 1px solid red;
+    }
+    #uls{
+        margin-top: 10px;
+    }
+    .selectbox{
+      width: 200px;
+      height: 50px;
+      border: 3px solid black;
+    }
+    [contenteditable] {
+      outline: 0px solid transparent;
+
+    }
+    #editorlabel{
+      font-size: 18px;
+    }
+    .card-body ul li input{
+      height: 25px;
+      width: 25px;
+     
+    }
+    .card-body ul li{
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 400px;
+    }
+    
+    #remove{
+      font-size: 18px;
+     
+    }
+    #remove:hover {
+      font-size: 18px;
+       cursor: pointer;
+    }
+    
+    .addcart{
+      margin-top: 10px;
+    }
+    
+   </style>
+
+     <div class="container mt-3">
+        <div class="row">
+          <div class="col-lg-8 col-sm-12">
+            <!-- <form action="" id="adminform">
+              <h3>Quiz Addmin</h3>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="question" aria-describedby="movIdHelp" placeholder="Enter Question name">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="answer" aria-describedby="movIdHelp" placeholder="Enter Question Answer">
+                </div>
+               <div class="form-group">
+                    <input type="date" class="form-control" name="date" aria-describedby="movIdHelp">
+               </div>
+              <div class="form-group">
+                    <p id="output" name="textField" title="Editor" contenteditable="true" ></p>
+              </div>
+                <input id="btn" class="btn btn-success"  type="submit" value="Creat new Question">
+             </form> -->
+            <button class="border-dark rounded pl-3 pr-3 pt-2  pb-2 btn mr-4" type="button" id="creat" ><i class="fas fa-plus-circle"></i></button>
+            <button class="border-dark rounded pl-3 pr-3 pt-2  pb-2 btn btn-success" type="button" id="save" >Save</button>
+            <div id="parentdiv">
+                                
+            </div>
+            
+          </div>
+        </div>
+     </div>
+   
+</body>
+<script type="module">
+/* Firebase import module*/
+   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+   import { getDatabase, ref, set,onValue,remove,push,child,update} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+/* Firebase import module*/
+
+/*Firebase Config*/
+const firebaseConfig = {
+    apiKey: "AIzaSyAMkjf6MFvBJdE7li8fx0Y6Dj0BZiOnVd0",
+    authDomain: "moviesdownloaders.firebaseapp.com",
+    databaseURL: "https://moviesdownloaders-default-rtdb.firebaseio.com",
+    projectId: "moviesdownloaders",
+    storageBucket: "moviesdownloaders.appspot.com",
+    messagingSenderId: "426710588024",
+    appId: "1:426710588024:web:119bfd2cb3ffe2e5f8ab8d",
+    measurementId: "G-E1341ZVKWS"
+ };
+  const app = initializeApp(firebaseConfig);
+  const datebase=getDatabase(app)
+/*Firebase Config*/ 
+ 
+  let count=0
+
+const creatdiv=document.querySelector("#creat")
+const parentdiv=document.querySelector("#parentdiv")   
+creatdiv.addEventListener("click",function(event){
+  const dateSetIs=rendomId()   
+  let newdiv=document.createElement("div")
+        newdiv.innerHTML=`
+              <div datadivid="${dateSetIs}" class="innerdiv mt-5 p-3 bg-light rounded" >
+                   <div class="inline">
+                      <input  type="text" class="form-control" name="Question" aria-describedby="movIdHelp" placeholder="Enter Question ">
+                        <div>
+                          <select class="rounded selectbox" id="${dateSetIs}" name="select" this.selectedIndex=0>
+                            <option value="none" selected>Select Option</option> 
+                            <option value="Checkbox" >Check box</option>
+                            <option value="DropDown" >DropDown</option>
+                            <option value="Radiobox">Radio box</option>
+                            <option value="SingleStatement">Single statement</option>
+                           
+                          </select>
+                        </div>
+                    </div>
+                    <div class="card addcart">
+                      <div class="card-body">
+                         <ul class="list-group list-group-flush singup"  id="${dateSetIs}"> 
+                            <li id="addnew" class="list-group-item border-bottom-0 rounded border-dark ${dateSetIs}" dataSetis="${dateSetIs}">
+                               <div>
+                                   <input disabled type="radio" name="" id="option" value="" class="mr-4"><label for="option" id="editorlabel"  dataSetis="${dateSetIs}" contenteditable="true"> Option </label> 
+                               </div>
+                               <div>
+                                  <h5 id="remove" title="Remove" hidden>X</h5>
+                               </div>
+                           </li> 
+                        </ul>
+                      
+                    </div>
+                  </div>     
+              </div>`
+
+parentdiv.insertAdjacentElement("afterbegin",newdiv)
+
+let selectbox=parentdiv.querySelector(".selectbox")
+
+let clickable=document.querySelector("#editorlabel")
+let clickable_dataset_Is= clickable.getAttribute("dataSetis")
+
+
+
+clickable.addEventListener("click",function(event){
+ let parent_element_id=clickable.parentElement.parentElement
+ let total_lengthof_ul =clickable.parentElement.parentElement.parentElement.children.length+1
+ let parent_element_getAttribute=clickable.parentElement.parentElement.getAttribute("datasetis")
+ 
+  if(clickable_dataset_Is==parent_element_getAttribute){
+      let li =document.createElement("li")
+                  li.setAttribute('id',`addnew`)
+                  li.setAttribute('dataSetis',`${dateSetIs}`)
+                  li.classList.add(["list-group-item"],["border-bottom-0"],["border-dark"],[`${dateSetIs}`],["rounded"])
+                  li.innerHTML=`<div>
+                              <input disabled type="${selectbox.value=="none"?"radio":selectbox.value=="Radiobox"?"radio":selectbox.value=="Checkbox"?"checkbox":"SingleStatement"}" name="" id="" value="" class="mr-4"><label id="editorlabel" contenteditable="true"> Option ${total_lengthof_ul}</label> 
+                              </div>
+                              <div>
+                              <h5 id="remove" title="Remove">X</h5>
+                             </div> `
+                  parent_element_id.insertAdjacentElement("afterend",li) 
+                  
+                   
+                }
+                 let selectboxupdate=document.querySelector(".selectbox") 
+                         if(selectboxupdate.value=="DropDown"){
+                          let get_div_classupdate=document.querySelector(".card-body")
+                          let get_ul_classupdate=get_div_classupdate.querySelector(`#${clickable_dataset_Is}`) 
+                          let getinputField=get_ul_classupdate.querySelectorAll("#addnew")
+                              getinputField.forEach((Element,index)=>{
+                              let getInput=Element.children[0].children[0]  
+                               enableinput(getInput,index)
+                               getInput.removeAttribute("type")
+                               getInput.setAttribute("type","text")                            
+                              
+                         })           
+                  }
+
+                  let remove=document.querySelectorAll("#remove")
+                             remove.forEach((rem,index)=>{
+                              rem.addEventListener("click",function(event){
+                                let getIds=rem.parentNode.parentNode.getAttribute("datasetis")
+                                let get_div_classupdate=document.querySelectorAll(".card-body");
+                                    get_div_classupdate.forEach(value=>{
+                                    let getulID =value.children[0].getAttribute("id")
+                                    if(getulID==getIds){
+                                      let removeElement=rem.parentNode.parentNode
+                                      value.children[0].removeChild(removeElement)
+                                      
+                                    }
+                                }) 
+                      })
+               }) 
+  })
+/*=====================================================================*/
+
+
+
+
+
+
+  
+selectbox.addEventListener("change",function(event){
+let selectboxdatasetis = selectbox.getAttribute("id") 
+let get_div_class=document.querySelector(".card-body")
+let get_ul_class=get_div_class.querySelector(`#${selectboxdatasetis}`)  
+let get_li_class=document.querySelectorAll(`.${selectboxdatasetis}`) 
+ 
+   ;[...get_li_class].forEach((Element,index)=>{
+   let getInput=Element.children[0].children[0];
+   if(selectbox.value=="Checkbox"){
+                      getInput.removeAttribute("type")
+                      getInput.setAttribute("type","checkbox")
+                      getInput.setAttribute("readonly","false") 
+                  }
+                  if(selectbox.value=="DropDown"){
+                      getInput.removeAttribute("type")
+                      getInput.setAttribute("type","text")                            
+                      enableinput(getInput,index)  
+                  }
+                  if(selectbox.value=="Radiobox"){
+                      getInput.removeAttribute("type")
+                      getInput.setAttribute("type","radio")
+                      getInput.setAttribute("readonly","false") 
+                    } 
+                  if(selectbox.value=="SingleStatement"){
+                      getInput.removeAttribute("type")
+                      getInput.setAttribute("type","SingleStatement")
+                      let hasAttributeis=Element.children[0].children[1].hasAttribute("dataSetis")
+                      if(hasAttributeis){
+                         let replece_Input=document.createElement("input")
+                             replece_Input.setAttribute("type","SingleStatement")
+                             replece_Input.setAttribute("name","SingleStatement")
+                             Element.children[0].replaceChild(replece_Input,Element.children[0].children[1])
+                       }
+                    }  
+  })
+
+})
+
+/*============================Save data======================================*/     
+const savebtn=document.querySelector("#save")
+ 
+let savedata=[] 
+savebtn.addEventListener("click",function(event){
+ 
+let totaldiv=document.querySelectorAll(".innerdiv")
+totaldiv.forEach(valu=>{
+  
+  let body=valu.querySelectorAll(".card-body")
+   body.forEach(di=>{
+       let ul =di.querySelectorAll(`#${valu.getAttribute("datadivid")}`)
+       ul.forEach(li=>{
+        let li_list =li.querySelectorAll(`.${valu.getAttribute("datadivid")}`)
+        let questiondetail={
+            optiondetail:{
+               option:{
+
+                }
+            }
+          }  
+           li_list.forEach((lilist,index)=>{
+              let alphabet="abcdefghijklmnopqrstuvwxyz"
+               let option_Name=alphabet.charAt(index)
+               questiondetail.optiondetail.option[option_Name]=lilist.children[0].children[1].textContent.trim()
+               questiondetail.optiondetail.input_type=lilist.children[0].children[0].type.trim()
+               questiondetail.Question_Name=valu.children[0].children[0].value.trim()  
+               questiondetail.html_Element_id=valu.getAttribute("datadivid")
+              })  
+           savedata.push(questiondetail) 
+       })
+      
+   }) 
+     
+})               
+converts(savedata)
+})
+
+function converts(savedata){
+  const obj = Object.assign({}, savedata);
+  console.log(obj)
+}
+      
+/*====================================================================*/ 
+})
+function enableinput(getInput,index){
+       getInput.value=index+1 
+       getInput.style.fontSize ="22px"
+       getInput.style.width = "25px"
+       getInput.style.height = "25px"
+       getInput.style.border="none"
+       getInput.style.outline="none"
+       getInput.setAttribute("readonly","true")     
+                     
+   }          
+
+function rendomId(){
+    let e_id="";
+    let alphabet ="abcdefghijklmnopqrstwxuvyz"
+  
+    for(let i=0;i<alphabet.length;i++){
+      let rendompick=Math.floor(Math.random() *36 )
+       e_id+=alphabet.charAt(rendompick)
+    }
+    return  e_id.slice(0,6)
+  }
+             
+
+</script>
+</html>
