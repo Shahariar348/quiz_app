@@ -1,0 +1,83 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUIZ MAKER ADDMIN</title>
+    <link rel="icon" href="./popcorn_1f37f.png" type="image/icon type">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  </head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10">
+                <ul class="list-group list-group-flush mt-2">
+                    <li class="list-group-item border rounded mb-2" >Cras justo odio</li>
+                    <div class="collapse" id="collapseExample0">
+                        <div class="card card-body">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        </div>
+                    </div>
+                    <li class="list-group-item border rounded mb-2">Dapibus ac facilisis in</li>
+                    <div class="collapse" id="collapseExample1">
+                        <div class="card card-body">
+                          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                        </div>
+                    </div>
+                    <li class="list-group-item border rounded mb-2">Vestibulum at eros</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+    </div>
+
+<script type="module">
+
+/* Firebase import module*/
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js";
+   import { getDatabase, ref, set,onValue,remove,push,child,update} from "https://www.gstatic.com/firebasejs/9.6.7/firebase-database.js";
+/* Firebase import module*/
+
+/*Firebase Config*/
+const firebaseConfig = {
+    apiKey: "AIzaSyAMkjf6MFvBJdE7li8fx0Y6Dj0BZiOnVd0",
+    authDomain: "moviesdownloaders.firebaseapp.com",
+    databaseURL: "https://moviesdownloaders-default-rtdb.firebaseio.com",
+    projectId: "moviesdownloaders",
+    storageBucket: "moviesdownloaders.appspot.com",
+    messagingSenderId: "426710588024",
+    appId: "1:426710588024:web:119bfd2cb3ffe2e5f8ab8d",
+    measurementId: "G-E1341ZVKWS"
+ };
+  const app = initializeApp(firebaseConfig);
+  const datebase=getDatabase(app)
+/*Firebase Config*/ 
+
+let ullist=document.querySelectorAll("li")
+
+for(let i=0;i<ullist.length;i++){
+    ullist[i].addEventListener("click",function(event){
+        ullist[i].setAttribute("data-toggle","collapse")
+        ullist[i].setAttribute("data-target",`#collapseExample${i}`)
+        ullist[i].setAttribute("aria-expanded","false")
+        ullist[i].setAttribute("aria-controls",`collapseExample${i}`)
+       
+    })
+}
+
+
+
+
+
+</script>
+</body>
+</html>    
